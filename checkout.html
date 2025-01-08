@@ -1,0 +1,84 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block content_checkout %}
+<div class="container mt-4">
+    <div class="row">
+        <!-- Left Side: Shipping Form -->
+        <div class="col-lg-6">
+            <div class="box-element p-4 shadow-sm">
+                <h3 class="mb-3">Thông tin thanh toán </h3>
+                <form id="form">
+                    <!-- User Info -->
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Họ và tên </label>
+                        <input required id="name" class="form-control" type="text" name="name" placeholder="Họ và tên">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input required id="email" class="form-control" type="email" name="email" placeholder="Địa chỉ Email nhận hàng">
+                    </div>
+					<div class="mb-3">
+                        <label for="email" class="form-label">SĐT</label>
+                        <input required id="email" class="form-control" type="email" name="email" placeholder="Số điện thoại(tùy chọn)">
+                    </div>
+
+                    <!-- Address Details -->
+					<h3 class="mb-3">Thông tin bổ sung  </h3>
+					<input required id="name" class="form-control" type="text" name="name" placeholder="Nếu bạn có ghi chú thêm về đơn hàng, xin viết ở đây (Có thể để trống)">
+
+                    <!-- Submit Button -->
+
+
+                    <button id="form-button" class="btn btn-primary btn-block" type="submit">Continue to Payment</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Right Side: Order Summary -->
+        <div class="col-lg-6">
+			<div class="box-element p-4 shadow-sm">
+				<h3 class="mb-4 text-center">Giỏ hàng </h3>
+				<!-- Product List -->
+				<div class="cart-row d-flex align-items-center mb-4">
+					<div style="flex: 2;">
+						<img class="img-thumbnail" src="{% static 'app/images/placeholder.png' %}" alt="Product 1" style="width: 100px;">
+					</div>
+					<div style="flex: 3;">
+						<p class="mb-1 font-weight-bold">Product 1</p>
+						<small class="text-muted">Category: Electronics</small>
+					</div>
+					<div style="flex: 1; text-align: center;">
+						<p class="mb-0 font-weight-bold">20.000đ</p>
+					</div>
+					<div style="flex: 1; text-align: center;">
+						<p class="mb-0">x2</p>
+					</div>
+				</div>
+				<hr>
+				<!-- Summary Details -->
+				<div class="d-flex justify-content-between">
+					<p class="mb-1"><strong>Tạm tính:</strong></p>
+					<p class="mb-1"><strong>$40.00</strong></p>
+				</div>
+				<div class="d-flex justify-content-between align-items-center">
+					<label for="promo-code" class="mb-1"><strong>Mã khuyến mãi (nếu có):</strong></label>
+					<input type="text" id="promo-code" class="form-control" placeholder="Nhập mã..." style="max-width: 200px;">
+					<button id="apply-promo" class="btn btn-success ml-2">Áp dụng</button>
+				</div>
+				<p class="mb-1 text-success" id="promo-message" style="display: none;">Mã khuyến mãi hợp lệ!</p>
+				<p class="mb-1 text-danger" id="promo-error" style="display: none;">Mã khuyến mãi không hợp lệ!</p>
+				
+				
+				<hr>
+				<div class="d-flex justify-content-between text-primary">
+					<h5><strong>Tổng:</strong></h5>
+					<h5><strong>40.000đ </strong></h5>
+				</div>
+				<hr>
+				<!-- Navigation Button -->
+				<a class="btn btn-outline-dark btn-sm w-100 mb-2" href="{% url 'cart' %}">&#x2190; Back to Cart</a>
+				<button class="btn btn-success btn-block w-100">Proceed to Payment</button>
+			</div>
+		</div>
+		
+{% endblock content_checkout %}
