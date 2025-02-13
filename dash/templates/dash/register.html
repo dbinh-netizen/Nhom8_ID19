@@ -14,39 +14,61 @@
     <h1 class="register-title">Đăng ký tài khoản</h1>
     <form class="register-form" method="POST">
       {% csrf_token %}
+      
       <div class="form-group">
         <label for="{{ form.username.id_for_label }}" class="form-label">{{ form.username.label }}</label>
-        <!-- Thêm class trực tiếp vào trường input -->
         <input type="text" name="{{ form.username.name }}" value="{{ form.username.value }}" class="form-input" id="{{ form.username.id_for_label }}" required>
-        {% if form.username.errors %}
-        <div class="form-error">{{ form.username.errors }}</div>
-        {% endif %}
+        {% if form.username.errors %}<div class="form-error">{{ form.username.errors }}</div>{% endif %}
       </div>
+      
       <div class="form-group">
         <label for="{{ form.email.id_for_label }}" class="form-label">{{ form.email.label }}</label>
         <input type="email" name="{{ form.email.name }}" value="{{ form.email.value }}" class="form-input" id="{{ form.email.id_for_label }}" required>
-        {% if form.email.errors %}
-        <div class="form-error">{{ form.email.errors }}</div>
-        {% endif %}
+        {% if form.email.errors %}<div class="form-error">{{ form.email.errors }}</div>{% endif %}
       </div>
+      
       <div class="form-group">
         <label for="{{ form.password1.id_for_label }}" class="form-label">{{ form.password1.label }}</label>
         <input type="password" name="{{ form.password1.name }}" value="{{ form.password1.value }}" class="form-input" id="{{ form.password1.id_for_label }}" required>
-        {% if form.password1.errors %}
-        <div class="form-error">{{ form.password1.errors }}</div>
-        {% endif %}
+        {% if form.password1.errors %}<div class="form-error">{{ form.password1.errors }}</div>{% endif %}
       </div>
+      
       <div class="form-group">
         <label for="{{ form.password2.id_for_label }}" class="form-label">{{ form.password2.label }}</label>
         <input type="password" name="{{ form.password2.name }}" value="{{ form.password2.value }}" class="form-input" id="{{ form.password2.id_for_label }}" required>
-        {% if form.password2.errors %}
-        <div class="form-error">{{ form.password2.errors }}</div>
-        {% endif %}
+        {% if form.password2.errors %}<div class="form-error">{{ form.password2.errors }}</div>{% endif %}
       </div>
+      
+      <div class="form-group">
+        <label for="account_type" class="form-label">Bạn muốn đăng ký tài khoản nào?</label>
+        <select name="account_type" id="account_type" class="form-input">
+          <option value="player">Player</option>
+          <option value="developer">Developer</option>
+          <option value="designer">Designer</option>
+        </select>
+      </div>
+      
+      <div id="developer-info" class="form-group" style="display: none;">
+        <label for="developer_id" class="form-label">Thông tin xác thực Developer:</label>
+        <input type="text" name="developer_id" id="developer_id" class="form-input" placeholder="Nhập mã Developer">
+      </div>
+      
+      <div id="designer-info" class="form-group" style="display: none;">
+        <label for="payment_info" class="form-label">Thông tin thanh toán Designer:</label>
+        <input type="text" name="payment_info" id="payment_info" class="form-input" placeholder="Nhập thông tin thanh toán">
+      </div>
+      
       <button type="submit" class="register-button">Đăng ký</button>
     </form>
+    
     <p class="login-link">Bạn đã có tài khoản? <a href="{% url 'login' %}">Đăng nhập</a></p>
   </main>
+  
+  <script>
+    document.getElementById('account_type').addEventListener('change', function() {
+      document.getElementById('developer-info').style.display = this.value === 'developer' ? 'block' : 'none';
+      document.getElementById('designer-info').style.display = this.value === 'designer' ? 'block' : 'none';
+    });
+  </script>
 </body>
-
 </html>
