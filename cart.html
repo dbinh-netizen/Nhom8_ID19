@@ -1,0 +1,224 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block cart_content %}
+
+<style>
+	/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    margin-top: 20px;
+    padding: 20px;
+}
+/* Box Element Styling */
+.box-element {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+/* Table Styling */
+.table {
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.table th, .table td {
+    vertical-align: middle;
+    text-align: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.table thead th {
+    background-color: #343a40;
+    color: #ffffff;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Row Styling */
+.cart-row {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}
+
+.cart-row:last-child {
+    border-bottom: none;
+}
+
+.cart-row div {
+    flex: 1;
+    text-align: center;
+}
+
+.row-image {
+    width: 100px; /* Tăng kích thước chiều rộng */
+    height: auto; /* Duy trì tỷ lệ khung hình */
+    border-radius: 5px; /* Tùy chọn bo tròn góc */
+    object-fit: cover; /* Đảm bảo ảnh được hiển thị gọn gàng */
+    margin: auto; /* Căn giữa ảnh */
+}
+
+.quantity-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Khoảng cách giữa các phần tử */
+}
+
+.chg-quantity {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 28px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.chg-quantity:hover {
+    background-color: #e2e6ea;
+    border-color: #adb5bd;
+}
+
+.quantity {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+    text-align: center;
+}
+
+
+/* Buttons */
+.btn-outline-dark, .btn-success {
+    border-radius: 5px;
+    font-weight: bold;
+    padding: 10px 20px;
+}
+
+.btn-outline-dark:hover {
+    background-color: #343a40;
+    color: white;
+}
+
+.btn-success {
+    background-color: #28a745;
+    color: white;
+    border: none;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+/* Header Styling */
+h5 strong {
+    color: #007bff;
+}
+
+/* Layout Adjustment */
+div[col-lg-12] {
+    padding: 15px;
+}
+
+/* Mobile Friendly Adjustments */
+@media (max-width: 768px) {
+    .cart-row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cart-row div {
+        margin-bottom: 10px;
+    }
+
+    .table thead {
+        display: none;
+    }
+
+    .table tbody tr {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+    }
+
+    .table td {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        border: none;
+    }
+}
+<script>
+    const user = "{{ request.user|safe }}";
+</script>
+<script src="{% static 'app/js/cart.js' %}"></script>
+
+</style>
+<div class="row">
+	<div class="col-lg-12">
+		<div class="box-element">
+
+			<a  class="btn btn-outline-dark" href="{% url 'home' %}">&#x2190; Continue Shopping</a>
+
+			<br>
+			<br>
+			<table class="table">
+				<tr>
+					<th><h5>Items: <strong>{{order.get_cart_items}}</strong></h5></th>
+					<th><h5>Total:<strong>₫{{order.get_cart_total|floatformat:0}}</strong></h5></th>
+					<th>
+						<a  style="float:right; margin:5px;" class="btn btn-success" href="{% url 'checkout' %}">Checkout</a>
+					</th>
+				</tr>
+			</table>
+
+		</div>
+
+		<br>
+		<div class="box-element">
+			<div class="cart-row">
+				<div style="flex:2"></div>
+				<div style="flex:2"><strong>Item</strong></div>
+				<div style="flex:1"><strong>Price</strong></div>
+				<div style="flex:1"><strong>Quantity</strong></div>
+				<div style="flex:1"><strong>Total</strong></div>
+			</div>
+			{%  for item in items %}
+			<div class="cart-row">
+				<div style="flex:2"><img class="row-image" src="{{item.product.ImageURL}}"></div>
+				<div style="flex:2"><p>{{item.product.name}}</p></div>
+				<div style="flex:1"><p>₫{{item.product.price|floatformat:0}}</p></div>
+				<div style="flex:1" class="quantity-container">
+					<button class="chg-quantity minus">-</button>
+					<p class="quantity">{{item.quantity}}</p>
+					<button class="chg-quantity plus">+</button>
+				</div>
+				<div style="flex:1"><p><div style="flex:1"><p>₫{{ item.get_total|floatformat:0 }}</p></div>
+            </p></div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+{% endblock cart_content %}

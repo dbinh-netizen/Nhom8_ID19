@@ -3,6 +3,10 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> code_cua_sang
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -51,10 +55,23 @@
                     </a>
                     <!-- ***** Logo End ***** -->
                     <ul class="nav">
+<<<<<<< HEAD
                         <li><a href="{% url 'home' %}" class="active">Trang chủ</a></li>
                 
                         <li><a href="{% url 'profile' %}">Tiểu sử<img src="{% static 'images/profile-header.jpg' %}" alt=""></a></li>
                     </ul>   
+=======
+                      <li><a href="{% url 'home' %}" class="active">Trang chủ</a></li>
+                  
+                      {% if user.is_authenticated %}
+                          <li><a href="{% url 'player_dashboard' %}">Player Dashboard</a></li>
+                          <li><a href="{% url 'profile' %}">Tiểu sử <img src="{% static 'images/profile-header.jpg' %}" alt=""></a></li>
+                      {% else %}
+                          <li><a href="{% url 'login' %}">Đăng nhập</a></li>
+                      {% endif %}
+                  </ul>
+                  
+>>>>>>> code_cua_sang
                     <a class="menu-trigger">
                         <span>Menu</span>
                     </a>
