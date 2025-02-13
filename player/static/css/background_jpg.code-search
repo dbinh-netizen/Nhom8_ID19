@@ -1,0 +1,39 @@
+# Query: background.jpg
+# ContextLines: 1
+
+7 results - 7 files
+
+gamehub\game_hub\dash\static\css\login.css:
+  4      padding: 0;
+  5:     background-image: url('/static/img/background.jpg'); /* Đặt hình nền */
+  6      background-size: cover;
+
+gamehub\game_hub\dash\static\css\main.css:
+  10    font-family: 'Arial', sans-serif;
+  11:   background-image: url('/static/img/background.jpg');
+  12    background-size: cover;
+
+gamehub\game_hub\dash\static\css\register.css:
+  4      padding: 0;
+  5:     background-image: url('/static/img/background.jpg');
+  6      background-size: cover;
+
+gamehub\game_hub\staticfiles\css\login.css:
+  4      padding: 0;
+  5:     background-image: url('/static/img/background.jpg'); /* Đặt hình nền */
+  6      background-size: cover;
+
+gamehub\game_hub\staticfiles\css\main.css:
+  4    font-family: Arial, sans-serif;
+  5:   background-image: url('/static/img/background.jpg'); /* Đường dẫn đúng tới hình ảnh */
+  6    background-size: cover;
+
+gamehub\game_hub\staticfiles\css\register.css:
+  4      padding: 0;
+  5:     background-image: url('/static/img/back.jpg');
+  6      background-size: cover;
+
+gamehub\game_hub\staticfiles\css\style.css:
+  4    font-family: Arial, sans-serif;
+  5:   background-image: url("{% static 'img/background.jpg' %}");
+  6    background-size: cover;
