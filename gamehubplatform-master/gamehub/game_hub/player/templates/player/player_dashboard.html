@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1e1e2f, #2a2a40);
+            color: white;
+        }
+        .dashboard-container {
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+        }
+        .card:hover {
+            transform: scale(1.05);
+            transition: 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="dashboard-container text-center p-4">
+            <h2>Chào mừng, {{ user.username }}</h2>
+            <p>Đây là bảng điều khiển của bạn.</p>
+            
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <div class="card p-3">
+                        <h4>Trò chơi của tôi</h4>
+                        <p>Xem và quản lý các trò chơi bạn đã chơi.</p>
+                        <a href="#" class="btn btn-primary">Xem ngay</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-3">
+                        <h4>Bảng xếp hạng</h4>
+                        <p>Xem vị trí của bạn trên bảng xếp hạng.</p>
+                        <a href="#" class="btn btn-success">Xem ngay</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-3">
+                        <h4>Cài đặt tài khoản</h4>
+                        <p>Chỉnh sửa thông tin cá nhân và bảo mật.</p>
+                        <a href="#" class="btn btn-warning">Chỉnh sửa</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
