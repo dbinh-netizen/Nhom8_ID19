@@ -24,23 +24,13 @@
         <div class="row">
           <div class="col-12">
             <nav class="main-nav">
-              <!-- Logo -->
               <a href="{% url 'home' %}" class="logo">
                 <img src="{% static 'images/lg.png' %}" alt="">
               </a>
-              
-              <!-- Navigation -->
               <ul class="nav">
-                <li><a href="{% url 'dash-home' %}" style="color: #e75e8d;">Trang Chủ</a></li>
-                <li><a href="{% url 'profile' %}" class="active" style="display: flex; align-items: center;">
-                  Tiểu Sử <img src="{% static 'images/profile-header.jpg' %}" alt="" style="width: 30px; height: 30px; border-radius: 50%; margin-left: 10px;">
-                </a></li>
-              </ul>   
-              
-              <!-- Menu Trigger -->
-              <a class='menu-trigger'>
-                <span>Menu</span>
-              </a>
+                <li><a href="{% url 'home' %}">Trang chủ</a></li>
+                <li><a href="{% url 'profile' %}" class="active">Tiểu sử<img src="{% static 'images/profile-header.jpg' %}" alt=""></a></li>
+              </ul>
             </nav>
           </div>
         </div>
@@ -58,15 +48,99 @@
                   <div class="row">
                     <div class="col-lg-4">
                       <!-- Hiển thị Avatar hiện tại -->
-                      <img src="{% static 'images/profile.jpg' %}" alt="Avatar" style="border-radius: 23px;">
+                      <img src="{{user.img.url}}" alt="Avatar" style="border-radius: 23px;">
                       <!-- Nút Cập nhật Avatar -->
-                      <button class="btn btn-primary mt-3" onclick="window.location.href='{% url 'profile' %}'">Cập nhật Avatar</button>
+                      {% comment %} <button class="btn btn-primary mt-3" onclick="window.location.href='{% url 'profile' %}'">Cập nhật Avatar</button> {% endcomment %}
                     </div>
                     <div class="col-lg-4 align-self-center">
                       <div class="main-info header-text">
-                        <span>Offline</span>
+                        <span>Online</span>
                         <h4>{{ user.username }}</h4>
-                        <p>Chưa có thông tin cá nhân</p>
+                        <p><strong>Họ tên:</strong> {{ user.fullname }}</p>
+                      <p><strong>Năm sinh:</strong> {{ user.birthday|date:"d/m/Y" }}</p>
+                      <p><strong>Số điện thoại:</strong> {{ user.phone }}</p>
+                      <p><strong>Địa chỉ:</strong> {{ user.address }}</p>
+                      <p><strong>Giới tính:</strong> {{ user.get_gender_display }}</p>
+                      <p><strong>Email:</strong> {{ user.email }}</p>
+                      <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#editProfileModal">
+                        Chỉnh sửa thông tin
+                    </button>
+                    <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <h3 class="modal-title text-black fw-bold " id="editProfileModalLabel">Chỉnh sửa thông tin cá nhân</h3>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                  <form method="POST" id="editProfileForm" enctype="multipart/form-data" action="{% url 'profile' %}">
+                                      {% csrf_token %}
+                                      {{ form.non_field_errors }}
+                                      
+                                      <div class="mb-3">
+                                          {{ form.fullname.label_tag }}
+                                          {{ form.fullname }}
+                                          {% if form.fullname.errors %}
+                                              <div class="text-danger">{{ form.fullname.errors }}</div>
+                                          {% endif %}
+                                      </div>
+                                      
+                                      <div class="mb-3">
+                                          {{ form.email.label_tag }}
+                                          {{ form.email }}
+                                          {% if form.email.errors %}
+                                              <div class="text-danger">{{ form.email.errors }}</div>
+                                          {% endif %}
+                                      </div>
+                                      
+                                      <div class="mb-3">
+                                          {{ form.birthday.label_tag }}
+                                          {{ form.birthday }}
+                                          {% if form.birthday.errors %}
+                                              <div class="text-danger">{{ form.birthday.errors }}</div>
+                                          {% endif %}
+                                      </div>
+                                      
+                                      <div class="mb-3">
+                                          {{ form.phone.label_tag }}
+                                          {{ form.phone }}
+                                          {% if form.phone.errors %}
+                                              <div class="text-danger">{{ form.phone.errors }}</div>
+                                          {% endif %}
+                                      </div>
+                                      
+                                      <div class="mb-3">
+                                          {{ form.address.label_tag }}
+                                          {{ form.address }}
+                                          {% if form.address.errors %}
+                                              <div class="text-danger">{{ form.address.errors }}</div>
+                                          {% endif %}
+                                      </div>
+                                      
+                                      <div class="mb-3">
+                                          {{ form.gender.label_tag }}
+                                          {{ form.gender }}
+                                          {% if form.gender.errors %}
+                                              <div class="text-danger">{{ form.gender.errors }}</div>
+                                          {% endif %}
+                                      </div>
+                                      
+                                      <div class="mb-3">
+                                          {{ form.img.label_tag }}  
+                                          {{ form.img }}  
+                                          {% if form.img.errors %}
+                                              <div class="text-danger">{{ form.img.errors }}</div>
+                                          {% endif %}
+                                      </div>
+                                      
+                                      <div class="text-center">
+                                          <button type="submit" class="btn btn-danger">Cập nhật thông tin</button>
+                                      </div>
+                                  </form>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
                       </div>
                     </div>
                     <div class="col-lg-4 align-self-center">
@@ -84,6 +158,10 @@
         </div>
       </div>
     </div>
+
+    {% comment %} Edit info {% endcomment %}
+  
+
 
     <footer>
       <div class="container">

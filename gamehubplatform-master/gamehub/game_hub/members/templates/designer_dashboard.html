@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Designer Dashboard</h2>
+    <p>Xin chào, {{ designer.user.username }}!</p>
+    <p>Số lượng tài sản đã tải lên: {{ designer.uploaded_assets.count }}</p>
+{% endblock %}
