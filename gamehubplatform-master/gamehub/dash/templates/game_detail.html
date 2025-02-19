@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ game.title }}</h1>
+<p>{{ game.description }}</p>
+
+<h2>Đánh giá</h2>
+<ul>
+    {% for review in reviews %}
+    <li><strong>{{ review.user.username }}</strong>: {{ review.rating }} sao - {{ review.comment }}</li>
+    {% empty %}
+    <li>Chưa có đánh giá nào.</li>
+    {% endfor %}
+</ul>
+
+{% if user.is_authenticated %}
+<h3>Gửi đánh giá</h3>
+<form id="review-form" method="post" action="{% url 'submit_review' game.id %}">
+    {% csrf_token %}
+    <label for="rating">Chọn đánh giá:</label>
+    <select name="rating" id="rating">
+        <option value="1">1 sao</option>
+        <option value="2">2 sao</option>
+        <option value="3">3 sao</option>
+        <option value="4">4 sao</option>
+        <option value="5">5 sao</option>
+    </select>
+    <br>
+    <label for="comment">Bình luận:</label>
+    <textarea name="comment" id="comment"></textarea>
+    <br>
+    <button type="submit">Gửi đánh giá</button>
+</form>
+{% else %}
+<p>Vui lòng <a href="{% url 'login' %}">đăng nhập</a> để đánh giá.</p>
+{% endif %}
+{% endblock %}

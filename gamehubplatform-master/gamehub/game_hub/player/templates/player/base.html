@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -51,10 +52,16 @@
                     </a>
                     <!-- ***** Logo End ***** -->
                     <ul class="nav">
-                        <li><a href="{% url 'home' %}" class="active">Trang chủ</a></li>
-                
-                        <li><a href="{% url 'profile' %}">Tiểu sử<img src="{% static 'images/profile-header.jpg' %}" alt=""></a></li>
-                    </ul>   
+                      <li><a href="{% url 'home' %}" class="active">Trang chủ</a></li>
+                  
+                      {% if user.is_authenticated %}
+                          <li><a href="{% url 'player_dashboard' %}">Player Dashboard</a></li>
+                          <li><a href="{% url 'profile' %}">Tiểu sử <img src="{% static 'images/profile-header.jpg' %}" alt=""></a></li>
+                      {% else %}
+                          <li><a href="{% url 'login' %}">Đăng nhập</a></li>
+                      {% endif %}
+                  </ul>
+                  
                     <a class="menu-trigger">
                         <span>Menu</span>
                     </a>
@@ -76,9 +83,9 @@
               <div class="col-lg-7">
                 <div class="header-text">
                   <h6>Cảm ơn đã ủng hộ chúng tôi!</h6>
-                  <h4><em></em> HÃY TRẢI NGHIỆM VÀ TẬN HƯỞNG </h4>
+                  <h4><em></em> Hãy trải nghiệm và tận hưởng  </h4>
                   <div class="main-button">
-                    <a href="{% url 'brower' %}">Tại Đây</a>
+                    <a href="{% url 'home' %}">Tại Đây</a>
                   </div>
                 </div>
               </div>

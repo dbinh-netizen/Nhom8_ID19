@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Admin Dashboard</h2>
+    <p>Xin chào, {{ admin.user.username }}!</p>
+    <p>Quyền quản lý:</p>
+    <ul>
+        <li>Quản lý người dùng: {{ admin.manages_users }}</li>
+        <li>Quản lý thanh toán: {{ admin.manages_payments }}</li>
+        <li>Quản lý nội dung: {{ admin.manages_content }}</li>
+    </ul>
+{% endblock %}
